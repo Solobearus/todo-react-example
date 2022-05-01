@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import {
   onInputChange,
@@ -7,6 +7,16 @@ import {
   onDonePress,
 } from "./store/TodoSlice";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  wrapper,
+  wrapperItem,
+  wrapperItemTodoList,
+  todoList,
+  input,
+  listItem,
+  done
+} from './App.style'
+
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,23 +36,23 @@ const App = () => {
   });
 
   return (
-    <div className={"wrapper"}>
-      <div className={"wrapperItem"}>
+    <div className={`${wrapper}`}>
+      <div className={`${wrapperItem}`}>
         <input
           value={inputText}
           onChange={(e) => dispatch(onInputChange(e.target.value))}
-          className={"input"}
+          className={`${input}`}
         />
       </div>
-      <div className={"wrapperItem wrapperItemTodoList"}>
-        <div className={"todoList"}>
+      <div className={`${wrapperItem} ${wrapperItemTodoList}`}>
+        <div className={`${todoList}`}>
           {Object.keys(todos).map((id) => {
             return (
-              <div key={id} className={"listItem"}>
+              <div key={id} className={`${listItem}`}>
                 <div onClick={() => dispatch(onDonePress(id))}>
                   {todos[id].done ? "✖︎" : "✔︎"}️
                 </div>
-                <div className={todos[id].done ? "done" : ""}>
+                <div className={todos[id].done ? `${done}` : ""}>
                   {todos[id].text}
                 </div>
                 <div onClick={() => dispatch(onDeletePress(id))}>🗑</div>
@@ -51,7 +61,7 @@ const App = () => {
           })}
         </div>
       </div>
-      <div className={"wrapperItem"}>
+      <div className={`${wrapperItem}`}>
         Todos left:{" "}
         {Object.keys(todos).filter((key) => !todos[key].done).length}
       </div>
